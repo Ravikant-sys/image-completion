@@ -6,6 +6,9 @@ A deep learning project for **image inpainting / completion** using a **Context 
 **Institution:** VIT Bhopal University  
 **Course:** Computer Vision  
 
+> [!NOTE]
+> **100% Terminal / Non-GUI Executable**: All scripts (`train.py`, `inpaint.py`, `demo.py`, `run_cli.sh`) are built with headless backends (`Agg` for matplotlib, non-GUI OpenCV). The entire pipeline runs directly from bash/SSH terminal environments without requiring X11, display servers, or GUI interactions.
+
 ---
 
 ## Overview
@@ -67,6 +70,7 @@ Masked Image
 
 ```
 image-completion/
+├── run_cli.sh           # Automated headless evaluation runner (bash)
 ├── config.yaml          # All hyperparameters (edit this to configure training)
 ├── train.py             # Training entry point
 ├── inpaint.py           # Inference / inpainting entry point
@@ -179,6 +183,25 @@ python inpaint.py --checkpoint checkpoints/ --mask_type random --num_images 32
 Results are saved to `inpaint_results/` including:
 - `inpainting_results.png` — side-by-side comparison grid
 - `reconstructed_XXXX.png` — individual reconstructed images
+
+---
+
+## Headless Command-Line Evaluation
+
+For automated testing and non-GUI grading environments:
+
+### Automated Evaluation Runner (`run_cli.sh`)
+
+Execute the complete end-to-end pipeline with a single terminal command:
+
+```bash
+bash run_cli.sh
+```
+
+This runs:
+1. Environment & dependency verification
+2. CLI model architecture validation (`train.py --summary`)
+3. Headless inpainting benchmark (`demo.py`) with metric output directly in the console and `demo_output.png` saved to disk.
 
 ---
 
