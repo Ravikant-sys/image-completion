@@ -1,0 +1,39 @@
+# ============================================================
+# Image Completion — Configuration
+# Author: Ravikant, VIT Bhopal University
+# ============================================================
+
+dataset:
+  name: "MNIST"          # Options: MNIST, CIFAR10
+  image_size: 64         # All images resized to image_size x image_size
+  channels: 3            # Output channels (RGB)
+  mask_type: "center"    # Options: center, random
+  random_mask_ratio: 0.50  # Fraction of pixels masked (random mode)
+  center_mask_size: 32   # Width/height of center mask box (center mode)
+
+model:
+  encoder_base_filters: 64   # Base number of filters (doubles each layer)
+  decoder_base_filters: 512  # Base filters for decoder (halves each layer)
+  patch_gan_filters: 64      # Base filters for PatchGAN discriminator
+
+training:
+  epochs: 50
+  batch_size: 64
+  learning_rate_g: 0.0002   # Generator (context encoder) learning rate
+  learning_rate_d: 0.0002   # Discriminator learning rate
+  beta1: 0.5                 # Adam beta1
+  beta2: 0.999               # Adam beta2
+  lambda_rec: 0.999          # Weight for pixel-wise reconstruction loss
+  lambda_adv: 0.001          # Weight for adversarial loss
+  label_smoothing: 0.1       # One-sided label smoothing for discriminator
+
+checkpointing:
+  checkpoint_dir: "checkpoints"
+  save_every_n_epochs: 5
+  max_to_keep: 3
+
+logging:
+  sample_dir: "samples"
+  log_dir: "logs"
+  sample_every_n_epochs: 2
+  num_sample_images: 16      # Number of images in sample grid
