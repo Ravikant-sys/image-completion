@@ -10,7 +10,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import (
-    SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, KeepTogether, HRFlowable
+    SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, KeepTogether, HRFlowable, Image as RLImage
 )
 
 def build_pdf(filename="PROJECT_REPORT.pdf"):
@@ -124,6 +124,18 @@ def build_pdf(filename="PROJECT_REPORT.pdf"):
         alignment=1, # Centered
         spaceBefore=4,
         spaceAfter=6
+    )
+
+    caption_style = ParagraphStyle(
+        'CaptionStyle',
+        parent=styles['Normal'],
+        fontName='Helvetica-Oblique',
+        fontSize=7.5,
+        leading=10,
+        textColor=colors.HexColor('#64748b'),
+        alignment=1, # Centered
+        spaceBefore=3,
+        spaceAfter=8
     )
 
     table_cell = ParagraphStyle(
@@ -241,6 +253,11 @@ def build_pdf(filename="PROJECT_REPORT.pdf"):
         "This patch-level receptive field enforces sharp, high-frequency textural realism across all regenerated regions.",
         bullet_style
     ))
+    story.append(Spacer(1, 6))
+    if os.path.isfile('assets/architecture_diagram.png'):
+        story.append(RLImage('assets/architecture_diagram.png', width=516, height=274))
+        story.append(Paragraph("<b>Figure 1:</b> Architectural workflow of the Context Encoder and PatchGAN Discriminator pipeline.", caption_style))
+    story.append(Spacer(1, 6))
 
     # 4. Mathematical Loss Formulation
     story.append(Paragraph("4. Mathematical Loss Formulation", h1_style))
@@ -344,7 +361,11 @@ def build_pdf(filename="PROJECT_REPORT.pdf"):
     story.append(Paragraph("&bull; <b>Headless Rendering:</b> Matplotlib backend explicitly set to <code>Agg</code>; OpenCV avoids all UI window calls.", bullet_style))
     story.append(Paragraph("&bull; <b>Automated CLI Runner:</b> One-line execution script (<code>bash run_cli.sh</code>) validates environment, outputs model summaries, and executes inpainting benchmark.", bullet_style))
     story.append(Paragraph("&bull; <b>Diagnostics:</b> Generates multi-panel evaluation figures (<code>demo_output.png</code>) containing Ground Truth, Binary Mask, Input, Output, and Error Intensity Heatmaps.", bullet_style))
-    story.append(Spacer(1, 10))
+    story.append(Spacer(1, 6))
+    if os.path.isfile('assets/sample_run_results.png'):
+        story.append(RLImage('assets/sample_run_results.png', width=516, height=258))
+        story.append(Paragraph("<b>Figure 2:</b> Five-panel visual diagnostics from a sample inpainting benchmark run (Ground Truth, Binary Mask, Input, Inpainted Output, and Error Heatmap).", caption_style))
+    story.append(Spacer(1, 8))
 
     # 9. Limitations & Conclusion
     story.append(Paragraph("9. Limitations & Conclusion", h1_style))

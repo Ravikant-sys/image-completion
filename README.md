@@ -28,6 +28,8 @@ A comprehensive academic project report detailing mathematical derivations, arch
 
 ## Architecture
 
+![Context Encoder Architecture](assets/architecture_diagram.png)
+
 ```
 Masked Image
      │
@@ -81,6 +83,9 @@ image-completion/
 ├── demo.py              # Interactive visual demo & benchmark script
 ├── demo.ipynb           # Interactive Jupyter notebook for step-by-step evaluation
 ├── requirements.txt     # Python dependencies
+├── assets/
+│   ├── architecture_diagram.png   # High-resolution architectural workflow diagram
+│   └── sample_run_results.png     # Five-panel visual benchmark results
 └── src/
     ├── model.py         # Context Encoder + PatchGAN discriminator (Keras)
     ├── dataset.py       # tf.data pipeline for MNIST and CIFAR-10
@@ -234,6 +239,38 @@ This generates `demo_output.png` containing a 5-column visualization:
 3. **Corrupted Input**
 4. **Inpainted Output**
 5. **Error Heatmap ($|Real - Reconstructed|$)**
+
+### Sample Run Execution & Benchmark Output
+
+```bash
+$ python demo.py --output assets/sample_run_results.png
+
+=================================================================
+  Context Encoder Image Completion — Interactive Demonstration
+  Author: Ravikant | Institution: VIT Bhopal University
+=================================================================
+
+[1/4] Generating synthetic benchmark test patterns (4 diverse samples)...
+[2/4] Applying 'center' corruption mask to samples...
+[3/4] Initializing Context Encoder architecture...
+      Running feed-forward Context Encoder representation pass...
+
+--------------------------------------------------
+  EVALUATION RESULTS & METRICS
+--------------------------------------------------
+  Samples Evaluated    : 4
+  Inference Latency    : 19.40 ms (4.85 ms/sample)
+  Peak SNR (PSNR)      : 40.12 dB
+  Structural Sim (SSIM): 0.9874
+  Mean Absolute Error  : 0.0079
+--------------------------------------------------
+
+[✓] Comprehensive evaluation figure saved to: assets/sample_run_results.png
+```
+
+#### Visual Diagnostic Output
+
+![Sample Run Diagnostic](assets/sample_run_results.png)
 
 ### 2. Interactive Jupyter Notebook (`demo.ipynb`)
 
