@@ -22,6 +22,8 @@ This project trains a **Context Encoder** — inspired by Pathak et al. (CVPR 20
 | **Reconstruction Loss (L2)** | Ensures pixel-accurate reconstruction of the missing region |
 | **Adversarial Loss (PatchGAN)** | Ensures perceptually realistic, sharp textures |
 
+A comprehensive academic project report detailing mathematical derivations, architectural specifics, ablation studies, and benchmarks is available in [`PROJECT_REPORT.md`](PROJECT_REPORT.md).
+
 ---
 
 ## Architecture
@@ -70,6 +72,7 @@ Masked Image
 
 ```
 image-completion/
+├── PROJECT_REPORT.md    # Complete academic project report (IEEE/CVPR format)
 ├── run_cli.sh           # Automated headless evaluation runner (bash)
 ├── config.yaml          # All hyperparameters (edit this to configure training)
 ├── train.py             # Training entry point
